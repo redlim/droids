@@ -46,6 +46,7 @@
           const data = {};
           data.protocols = droid.protocols;
           data.scan = this.world.model.items.reduce((acum,el)=>{
+            if(el.model.coords && el.model.enemies && el.model.allies)
             acum.push({coordinates:el.model.coords,enemies:el.model.enemies,allies:el.model.allies});
             return acum;
           },[]);
