@@ -1,9 +1,9 @@
 <template>
   <div>
-    <button v-on:click="open=true">Deploy Droid</button>
-    <div id="myModal" class="modal" :class="{'hide' : !open}">
+    <button v-on:click="open.open=true">Deploy Droid</button>
+    <div id="myModal" class="modal" :class="{'hide' : !open.open}">
       <div class="modal-content">
-        <span class="close" v-on:click="open=false">&times;</span>
+        <span class="close" v-on:click="open.open=false">&times;</span>
         <h2>Add Droid</h2>
         <form>
           <label for="xCoordinate">X:
@@ -35,10 +35,9 @@
 <script>
   export default {
     name: 'DeployDroid',
-    props:['coordinates','protocols'],
+    props:['coordinates','protocols','open'],
     data () {
       return {
-        open:false
       }
     },
     mounted(){
@@ -52,9 +51,12 @@
     methods:{
       updateCoordinates (e){
         e.preventDefault();
-        this.open = false;
+        this.open.open = false;
         this.$emit('addDroid')
       }
+    },
+    computed :{
+
     }
   }
 </script>

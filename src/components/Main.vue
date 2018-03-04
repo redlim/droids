@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <div class="actions-container">
-      <deploy-droid :coordinates="currentCoordinates" :protocols="protocols" @addDroid="addDroid"></deploy-droid>
+      <deploy-droid :coordinates="currentCoordinates" :protocols="protocols" @addDroid="addDroid" :open="openDialog"></deploy-droid>
       <button type="button" v-on:click="shoot">Shoot</button>
     </div>
     <div class="world-container">
-      <div id="world">
+      <div id="world" v-on:click="worldClick">
       </div>
     </div>
   </div>
@@ -24,7 +24,8 @@
         currentCoordinates:{x:'0',y:'0'},
         protocols:{currentProcotols:[]},
         droidsAdded:[],
-        droidsInit:1
+        droidsInit:1,
+        openDialog:{open:false}
       }
     },
     mounted(){
@@ -59,6 +60,10 @@
             console.log(err);
           });
         });
+      },
+      worldClick (){
+        this.currentCoordinates = this.world.model.cursor;
+        this.openDialog.open = true;
       }
     }
   }
