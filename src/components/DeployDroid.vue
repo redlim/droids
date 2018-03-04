@@ -1,16 +1,16 @@
 <template>
-  <div class="hello">
+  <div>
     <button v-on:click="open=true">Deploy Droid</button>
-    <span class="close" v-on:click="open=false">&times;</span>
     <div id="myModal" class="modal" :class="{'hide' : !open}">
       <div class="modal-content">
+        <span class="close" v-on:click="open=false">&times;</span>
         <h2>Add Droid</h2>
         <form>
           <label for="xCoordinate">X:
-            <input v-model="coordinates.x" id="xCoordinate" type="number">
+            <input v-model="coordinates.x" min="0" id="xCoordinate" type="number">
           </label>
           <label for="xCoordinate">Y:
-            <input v-model="coordinates.y" id="yCoordinate" type="number">
+            <input v-model="coordinates.y" min="0" id="yCoordinate" type="number">
           </label>
           <label for="closest-enemies">
           <input type="checkbox" id="closest-enemies" value="closest-enemies" v-model="protocols.currentProcotols">
@@ -104,5 +104,14 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+  }
+  button{
+    background-color: #aeaf0a;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
   }
 </style>

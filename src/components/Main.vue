@@ -1,8 +1,12 @@
 <template>
   <div class="container">
-    <deploy-droid :coordinates="currentCoordinates" :protocols="protocols" @addDroid="addDroid"></deploy-droid>
-    <button v-on:click="shoot">Shoot</button>
-    <div id="world">
+    <div class="actions-container">
+      <deploy-droid :coordinates="currentCoordinates" :protocols="protocols" @addDroid="addDroid"></deploy-droid>
+      <button type="button" v-on:click="shoot">Shoot</button>
+    </div>
+    <div class="world-container">
+      <div id="world">
+      </div>
     </div>
   </div>
 </template>
@@ -28,7 +32,6 @@
       this.world = new World({
         element: worldElement
       });
-      console.log(this.world.model);
     },
     methods:{
       addDroid (){
@@ -36,15 +39,12 @@
         this.world.addDroid(id,this.currentCoordinates);
         this.droidsInit++;
         this.droidsAdded.push({id:id,coordinates:this.currentCoordinates,protocols:this.protocols.currentProcotols});
-        console.log(this.currentCoordinates);
-        console.log(this.protocols);
       },
-      shoot (){
+      shoot () {
         this.droidsAdded.forEach((droid)=> {
           const data = {};
           data.protocols = droid.protocols;
           data.scan = this.world.model.items.reduce((acum,el)=>{
-
             acum.push({coordinates:el.model.coords,enemies:el.model.enemies,allies:el.model.allies});
             return acum;
           },[]);
@@ -56,7 +56,7 @@
           }).then(response => {
             this.world.fire(droid.id,response.data);
           }, err => {
-            console.log(err)
+            console.log(err);
           });
         });
       }
@@ -66,4 +66,23 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .actions-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 10%;
+  }
+  button{
+    background-color: #fc0d1b;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+  .world-container{
+    height: 70%;
+  }
 </style>
